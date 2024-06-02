@@ -1,0 +1,36 @@
+version: '3.7'
+services:
+  app:
+    build:
+      context: /home/db/opentelemetrydemo
+      dockerfile: Dockerfile
+    networks:
+      - shared_network
+    ports:
+      - 8080:8080
+    environment:
+    - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres/postgres
+    - SPRING_DATASOURCE_USERNAME=postgres
+    - SPRING_DATASOURCE_PASSWORD=postgres
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:latest
+    ports:
+      - 5434:5432
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres -h localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - shared_network
+
+networks:
+    shared_network:
+      external: true
