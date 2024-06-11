@@ -4,8 +4,6 @@ services:
     build:
       context: /home/db/opentelemetrydemo
       dockerfile: Dockerfile
-    networks:
-      - shared_network
     ports:
       - 8080:8080
     environment:
@@ -28,9 +26,3 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    networks:
-      - shared_network
-
-networks:
-    shared_network:
-      external: true
