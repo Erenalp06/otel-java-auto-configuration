@@ -12,4 +12,4 @@ WORKDIR /app
 COPY --from=build /app/target/otel-demo-1.jar /app/otel-demo-1.jar
 COPY opentelemetry-javaagent.jar /app/opentelemetry-javaagent.jar
 EXPOSE 8080
-ENTRYPOINT ["java", "-javaagent:/app/opentelemetry-javaagent.jar", "-Dotel.exporter.otlp.endpoint=http://10.150.238.177:4317", "-Dotel.resource.attributes=service.name=java-telemetry-api", "-Dotel.exporter.otlp.protocol=grpc", "-jar", "otel-demo-1.jar"]
+ENTRYPOINT ["java", "-javaagent:/app/opentelemetry-javaagent.jar", "-Dotel.exporter.otlp.endpoint=http://192.168.1.11:4317", "-Dotel.resource.attributes=service.name=java-telemetry", "-Dotel.exporter.otlp.protocol=grpc", "-jar", "otel-demo-1.jar"]
